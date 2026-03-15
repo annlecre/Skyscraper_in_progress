@@ -6,7 +6,7 @@
 /*   By: annlecre <annlecre@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 11:47:28 by annlecre          #+#    #+#             */
-/*   Updated: 2026/03/14 15:13:42 by annlecre         ###   ########.fr       */
+/*   Updated: 2026/03/15 07:42:40 by annlecre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,32 @@ void	get_clues(char *argv)
 	i = 0;
 	while (i < 4)
 	{
-		clues[0][i] = argv[1 + i] - 48;
-		clues[1][i] = argv[5 + i] - 48;
-		clues[2][i] = argv[9 + i] - 48;
-		clues[3][i] = argv[13 + i] - 48;
+		clues[0][i] = argv[1][0 + i] - 48;
+		clues[1][i] = argv[1][4 + i] - 48;
+		clues[2][i] = argv[1][8 + i] - 48;
+		clues[3][i] = argv[1][12 + i] - 48;
 		i++;
 	}
 }
 
+void	print_solved_grid(int *grid)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			write(1, grid[i][j] + '0', 1);
+			write(1, " ", 1);
+			j++;
+		}
+		write(1, "\n", 1);
+	}
+}
 
 
 int	main(int argc, char *argv[])
@@ -40,9 +58,9 @@ int	main(int argc, char *argv[])
 
 		i = 0;
 		count = 0;
-		while (argv[i])
+		while (argv[1][i])
 		{
-			if (argv[i] < 1 + 48 || argv[i] > 4 + 48)
+			if (argv[1][i] < 1 + 48 || argv[1][i] > 4 + 48)
 				write(1, "Error\n", 6);
 				return (0);
 			count++;
@@ -54,7 +72,7 @@ int	main(int argc, char *argv[])
 		else
 		{
 			//start the program
-			get_clues(argv[]);
+			get_clues(argv[1]);
 			//initialize solution grid
 			i = 0;
 			while (i < 4)
